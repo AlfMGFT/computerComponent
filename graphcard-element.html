@@ -1,0 +1,39 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="graphcard-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>[[graphcard]]</h2>
+  </template>
+
+  <script>
+    /**
+     * `graphcard-element`
+     * &#34;This is a computer component&#34;
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class GraphCardElement extends Polymer.Element {
+      static get is() { return 'graphcard-element'; }
+      static get properties() {
+        return {
+          graphcard: {
+            type: String,
+            value: 'GFT'
+          },
+          listGraphCard: {
+            type: Array,
+          }
+        };
+      }
+    }
+
+    window.customElements.define(GraphCardElement.is, GraphCardElement);
+  </script>
+</dom-module>

@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="computer-component">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `computer-component`
+     * &#34;This is a computer component&#34;
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class ComputerComponent extends Polymer.Element {
+      static get is() { return 'computer-component'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'computer-component'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(ComputerComponent.is, ComputerComponent);
+  </script>
+</dom-module>

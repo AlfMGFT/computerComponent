@@ -1,0 +1,39 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="ram-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>[[ram]]</h2>
+  </template>
+
+  <script>
+    /**
+     * `ram-element`
+     * &#34;This is a computer component&#34;
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class RamElement extends Polymer.Element {
+      static get is() { return 'ram-element'; }
+      static get properties() {
+        return {
+          ram: {
+            type: String,
+            value: '4 GB - GFT'
+          },
+          listRam: {
+            type: Array,
+          }
+        };
+      }
+    }
+
+    window.customElements.define(RamElement.is, RamElement);
+  </script>
+</dom-module>

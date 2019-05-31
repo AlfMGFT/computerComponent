@@ -1,0 +1,39 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="processor-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>[[processor]]</h2>
+  </template>
+
+  <script>
+    /**
+     * `processor-element`
+     * &#34;This is a computer component&#34;
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class ProcessorElement extends Polymer.Element {
+      static get is() { return 'processor-element'; }
+      static get properties() {
+        return {
+          processor: {
+            type: String,
+            value: 'Corporation Capsule'
+          },
+          listProcessor: {
+            type: Array,
+          }
+        };
+      }
+    }
+
+    window.customElements.define(ProcessorElement.is, ProcessorElement);
+  </script>
+</dom-module>

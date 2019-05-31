@@ -1,0 +1,61 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="hdd-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>[[hdd]]</h2>
+    <!--<h2>[[getAPIInformation()]]</h2>
+    <h2>[[listHdd.0.size]]</h2>
+    <template is="dom-repeat" items="[[listHdd]]">
+        <p>Iteración [[item.size]] - [[index]]</p>
+    </template>-->
+        
+
+        
+  </template>
+
+  <script>
+    /**
+     * `hdd-element`
+     * &#34;This is a computer component&#34;
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class HddElement extends Polymer.Element {
+      static get is() { return 'hdd-element'; }
+      static get properties() {
+        return {
+          hdd: {
+            type: String,
+            value: '2TB - GFT',
+            notify: true
+          }, 
+          listHdd: {
+            type: Array,
+          }
+        };
+      }
+
+      /*getAPIInformation() {
+        let request = new XMLHttpRequest();
+        let url = "https://demo6292426.mockable.io/hddList";
+        request.open('GET', url);
+        request.send();
+        request.onreadystatechange = () => {
+          if (request.readyState === 4) {
+            console.log(JSON.parse(request.response));
+            this.listHdd = JSON.parse(request.response).data;
+          }
+        }
+      }*/
+    }
+
+    window.customElements.define(HddElement.is, HddElement);
+  </script>
+</dom-module>

@@ -1,0 +1,206 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="./processor-element.html">
+<link rel="import" href="./ram-element.html">
+<link rel="import" href="./hdd-element.html">
+<link rel="import" href="./graphcard-element.html">
+
+<dom-module id="computer-component">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .contenedor-tabla {
+        display: table;
+        border: solid 1px;
+      }
+
+      .contenedor-fila {
+        display: table-row;
+        border: solid 1px;
+      }
+
+      .contenedor-columna {
+        display: table-cell;
+        border: solid 1px;
+      }
+    </style>
+    <h2>Hola Bienvenido a la computadora![[status]]</h2>
+    <button on-click="start">Start</button>
+    <button on-click="powerOff">Power Off</button>
+    <br>
+    <br>
+    <template is="dom-if" if="[[status]]">
+      <h1>Processor</h1>
+      <processor-element></processor-element>
+      <h1>RAM</h1>
+      <ram-element></ram-element>
+      <h1>HDD</h1>
+      <hdd-element hdd="{{newHdd}}"></hdd-element>
+      <h1>Graph Card</h1>
+      <graphcard-element></graphcard-element>
+    </template>
+
+    <template is="dom-if" if="[[!status]]">
+      <h1>Processor</h1>
+      <processor-element></processor-element>
+      <h1>RAM</h1>
+      <ram-element></ram-element>
+      <h1>HDD</h1>
+      <hdd-element></hdd-element>
+      <h1>Graph Card</h1>
+      <graphcard-element></graphcard-element>
+      <p on-click="selectHdd">click</p>
+      <div class="contenedor-tabla">
+        <div class="contenedor-fila">
+          <div class="contenedor-columna">
+            <h1>HDD</h1>
+            <template is="dom-repeat" items="[[listHdd]]">
+              <p on-click="selectHdd">[[item.size]]</p>
+            </template>
+          </div>
+          <div class="contenedor-columna">
+            <h1>Processor</h1>
+            <template is="dom-repeat" items="[[listProcessor]]">
+              <p on-click="selectProcessor">[[item.name]]</p>
+            </template>
+          </div>
+          <div class="contenedor-columna">
+            <h1>Graph Card</h1>
+            <template is="dom-repeat" items="[[listGraphCard]]">
+              <p on-click="selectRam">[[item.name]]</p>
+            </template>
+          </div>
+          <div class="contenedor-columna">
+            <h1>RAM</h1>
+            <template is="dom-repeat" items="[[listRam]]">
+              <p on-click="selectGraphCard">[[item.ramMemory]]</p>
+            </template>
+          </div>
+        </div>
+      </div>
+    </template>
+  </template>
+
+  <script>
+    /**
+     * `computer-component`
+     * &#34;This is a computer component&#34;
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class ComputerComponent extends Polymer.Element {
+      static get is() { return 'computer-component'; }
+      static get properties() {
+        return {
+          status: {
+            type: Boolean,
+            value: false
+          },
+          newHdd: {
+            type: String
+          },
+          newProcessor: {
+            type: String
+          },
+          newRam: {
+            type: String
+          },
+          newGrapCard: {
+            type: String
+          }
+        };
+      }
+      start() {
+        this.status = true
+        //alert("enciende"+this.status)
+      }
+      powerOff() {
+        this.status = false
+        //alert("enciende"+this.status)
+      }
+      ready() {
+        super.ready()
+        //this.getAPIInformationhddList();
+        //this.getAPIInformationProcessors();
+        //this.getAPIInformationGraphicCard();
+        //this.getAPIInformationRamMemory();
+      }
+
+      getAPIInformationhddList() {
+        let request = new XMLHttpRequest();
+        let url = "https://demo6292426.mockable.io/hddList";
+        request.open('GET', url);
+        request.send();
+        request.onreadystatechange = () => {
+          if (request.readyState === 4) {
+            console.log(JSON.parse(request.response));
+            this.listHdd = JSON.parse(request.response).data;
+          }
+        }
+      }
+      getAPIInformationProcessors() {
+        let request = new XMLHttpRequest();
+        let url = "https://demo6292426.mockable.io/processors";
+        request.open('GET', url);
+        request.send();
+        request.onreadystatechange = () => {
+          if (request.readyState === 4) {
+            console.log(JSON.parse(request.response));
+            this.listProcessor = JSON.parse(request.response).data;
+          }
+        }
+      }
+      getAPIInformationRamMemory() {
+        let request = new XMLHttpRequest();
+        let url = "https://demo6292426.mockable.io/ramMemory";
+        request.open('GET', url);
+        request.send();
+        request.onreadystatechange = () => {
+          if (request.readyState === 4) {
+            console.log(JSON.parse(request.response));
+            this.listRam = JSON.parse(request.response).data;
+          }
+        }
+      }
+      getAPIInformationGraphicCard() {
+        let request = new XMLHttpRequest();
+        let url = "https://demo6292426.mockable.io/graphicCard";
+        request.open('GET', url);
+        request.send();
+        request.onreadystatechange = () => {
+          if (request.readyState === 4) {
+            console.log(JSON.parse(request.response));
+            this.listGraphCard = JSON.parse(request.response).data;
+          }
+        }
+      }
+
+      selectHdd(e) {
+        //console.log(e.model.item.size)
+        console.log()
+        this.set("newHdd", "e.model.item.size")
+        //this.set("newHdd", e.model.item.size)
+      }
+      selectProcessor(e) {
+        console.log(e.model.item.name)
+        this.set("newProcessor", e.model.item.name)
+      }
+      selectRam(e) {
+        console.log(e.model.item.ramMemory)
+        this.set("newRam", e.model.item.ramMemory)
+      }
+      selectGraphCard(e) {
+        console.log(e.model.item.name)
+        this.set("newGrapCard", e.model.item.name)
+      }
+
+
+    }
+
+    window.customElements.define(ComputerComponent.is, ComputerComponent);
+  </script>
+</dom-module>
