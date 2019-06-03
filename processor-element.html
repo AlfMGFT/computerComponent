@@ -7,7 +7,16 @@
         display: block;
       }
     </style>
-    <h2>[[processor]]</h2>
+    <template is="dom-if" if="[[sendStatus]]">
+      <h1>Processor</h1>
+      <h2>[[processor]]</h2>
+    </template>
+    <template is="dom-if" if="[[!sendStatus]]">
+      <h1>Processor</h1>
+      <template is="dom-repeat" items="[[listProcessor]]">
+        <p on-click="selectProcessor">[[item.name]]</p>
+      </template>
+    </template>
   </template>
 
   <script>
@@ -23,6 +32,10 @@
       static get is() { return 'processor-element'; }
       static get properties() {
         return {
+          sendStatus: {
+            type: Boolean,
+            notify: true
+          },
           processor: {
             type: String,
             value: 'Corporation Capsule'
@@ -31,6 +44,26 @@
             type: Array,
           }
         };
+      }
+      ready() {
+        super.ready()
+        this.getAPIInformationProcessors();
+      }
+      getAPIInformationProcessors() {
+        let request = new XMLHttpRequest();
+        let url = "https://demo6292426.mockable.io/processors";
+        request.open('GET', url);
+        request.send();
+        request.onreadystatechange = () => {
+          if (request.readyState === 4) {
+            console.log(JSON.parse(request.response));
+            this.listProcessor = JSON.parse(request.response).data;
+          }
+        }
+      }
+      selectProcessor(e) {
+        console.log(e.model.item.name)
+        this.set("processor", e.model.item.name)
       }
     }
 

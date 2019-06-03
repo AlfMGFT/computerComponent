@@ -7,7 +7,16 @@
         display: block;
       }
     </style>
-    <h2>[[ram]]</h2>
+      <template is="dom-if" if="[[sendStatus]]">
+        <h1>RAM</h1>
+        <h2>[[ram]]</h2>
+      </template>
+      <template is="dom-if" if="[[!sendStatus]]">
+        <h1>RAM</h1>
+        <template is="dom-repeat" items="[[listRam]]">
+          <p on-click="selectRam">[[item.ramMemory]]</p>
+        </template>
+      </template>
   </template>
 
   <script>
@@ -23,6 +32,10 @@
       static get is() { return 'ram-element'; }
       static get properties() {
         return {
+          sendStatus: {
+            type: Boolean,
+            notify: true
+          },
           ram: {
             type: String,
             value: '4 GB - GFT'
@@ -31,6 +44,26 @@
             type: Array,
           }
         };
+      }
+      ready() {
+        super.ready()
+        this.getAPIInformationRamMemory();
+      }
+      getAPIInformationRamMemory() {
+        let request = new XMLHttpRequest();
+        let url = "https://demo6292426.mockable.io/ramMemory";
+        request.open('GET', url);
+        request.send();
+        request.onreadystatechange = () => {
+          if (request.readyState === 4) {
+            console.log(JSON.parse(request.response));
+            this.listRam = JSON.parse(request.response).data;
+          }
+        }
+      }
+      selectRam(e) {
+        console.log(e.model.item.ramMemory)
+        this.set("ram", e.model.item.ramMemory)
       }
     }
 

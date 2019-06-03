@@ -7,7 +7,16 @@
         display: block;
       }
     </style>
-    <h2>[[graphcard]]</h2>
+    <template is="dom-if" if="[[sendStatus]]">
+      <h1>Graph Card</h1>
+      <h2>[[graphcard]]</h2>
+    </template>
+    <template is="dom-if" if="[[!sendStatus]]">
+      <h1>Graph Card</h1>
+      <template is="dom-repeat" items="[[listGraphCard]]">
+        <p on-click="selectGraphCard">[[item.name]]</p>
+      </template>
+    </template>
   </template>
 
   <script>
@@ -23,6 +32,10 @@
       static get is() { return 'graphcard-element'; }
       static get properties() {
         return {
+          sendStatus: {
+            type: Boolean,
+            notify: true
+          },
           graphcard: {
             type: String,
             value: 'GFT'
@@ -31,6 +44,26 @@
             type: Array,
           }
         };
+      }
+      ready() {
+        super.ready()
+        this.getAPIInformationGraphicCard();
+      }
+      getAPIInformationGraphicCard() {
+        let request = new XMLHttpRequest();
+        let url = "https://demo6292426.mockable.io/graphicCard";
+        request.open('GET', url);
+        request.send();
+        request.onreadystatechange = () => {
+          if (request.readyState === 4) {
+            console.log(JSON.parse(request.response));
+            this.listGraphCard = JSON.parse(request.response).data;
+          }
+        }
+      }
+      selectGraphCard(e) {
+        console.log(e.model.item.name)
+        this.set("graphcard", e.model.item.name)
       }
     }
 

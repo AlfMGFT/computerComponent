@@ -7,15 +7,16 @@
         display: block;
       }
     </style>
-    <h2>[[hdd]]</h2>
-    <!--<h2>[[getAPIInformation()]]</h2>
-    <h2>[[listHdd.0.size]]</h2>
-    <template is="dom-repeat" items="[[listHdd]]">
-        <p>Iteración [[item.size]] - [[index]]</p>
-    </template>-->
-        
-
-        
+      <template is="dom-if" if="[[sendStatus]]">
+        <h1>HDD</h1>
+        <h2>[[hdd]]</h2>
+      </template>
+      <template is="dom-if" if="[[!sendStatus]]">
+        <h1>HDD</h1>
+        <template is="dom-repeat" items="[[listHdd]]">
+          <p on-click="selectHdd">[[item.size]]</p>
+        </template>
+      </template>
   </template>
 
   <script>
@@ -31,18 +32,25 @@
       static get is() { return 'hdd-element'; }
       static get properties() {
         return {
+          sendStatus: {
+            type: Boolean,
+            notify: true
+          },
           hdd: {
             type: String,
             value: '2TB - GFT',
             notify: true
-          }, 
+          },
           listHdd: {
             type: Array,
           }
         };
       }
-
-      /*getAPIInformation() {
+      ready() {
+        super.ready()
+        this.getAPIInformationhddList();
+      }
+      getAPIInformationhddList() {
         let request = new XMLHttpRequest();
         let url = "https://demo6292426.mockable.io/hddList";
         request.open('GET', url);
@@ -53,7 +61,11 @@
             this.listHdd = JSON.parse(request.response).data;
           }
         }
-      }*/
+      }
+      selectHdd(e) {
+        console.log(e.model.item.size)
+        this.set("hdd", e.model.item.size)
+      }
     }
 
     window.customElements.define(HddElement.is, HddElement);
