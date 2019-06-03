@@ -7,11 +7,11 @@
         display: block;
       }
     </style>
-      <template is="dom-if" if="[[sendStatus]]">
+      <template is="dom-if" if="[[sendstatus]]">
         <h1>RAM</h1>
-        <h2>[[ram]]</h2>
+        <h2>{{ram.ramMemory}}</h2>
       </template>
-      <template is="dom-if" if="[[!sendStatus]]">
+      <template is="dom-if" if="[[!sendstatus]]">
         <h1>RAM</h1>
         <template is="dom-repeat" items="[[listRam]]">
           <p on-click="selectRam">[[item.ramMemory]]</p>
@@ -37,8 +37,11 @@
             notify: true
           },
           ram: {
-            type: String,
-            value: '4 GB - GFT'
+            type: Object,
+            value: {
+              ramMemory: '4 GB - GFT',
+              notify: true
+            } 
           },
           listRam: {
             type: Array,
@@ -63,7 +66,7 @@
       }
       selectRam(e) {
         console.log(e.model.item.ramMemory)
-        this.set("ram", e.model.item.ramMemory)
+        this.set("ram.ramMemory", e.model.item.ramMemory)
       }
     }
 

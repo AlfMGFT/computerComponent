@@ -7,11 +7,11 @@
         display: block;
       }
     </style>
-      <template is="dom-if" if="[[sendStatus]]">
+      <template is="dom-if" if="[[sendstatus]]">
         <h1>HDD</h1>
-        <h2>[[hdd]]</h2>
+        <h2>{{hdd.size}}</h2>
       </template>
-      <template is="dom-if" if="[[!sendStatus]]">
+      <template is="dom-if" if="[[!sendstatus]]">
         <h1>HDD</h1>
         <template is="dom-repeat" items="[[listHdd]]">
           <p on-click="selectHdd">[[item.size]]</p>
@@ -37,9 +37,11 @@
             notify: true
           },
           hdd: {
-            type: String,
-            value: '2TB - GFT',
-            notify: true
+            type: Object,
+            value: {
+              size: '2TB - GFT',
+              notify: true
+            } 
           },
           listHdd: {
             type: Array,
@@ -64,7 +66,7 @@
       }
       selectHdd(e) {
         console.log(e.model.item.size)
-        this.set("hdd", e.model.item.size)
+        this.set("hdd.size", e.model.item.size)
       }
     }
 

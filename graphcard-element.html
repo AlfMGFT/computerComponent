@@ -7,11 +7,11 @@
         display: block;
       }
     </style>
-    <template is="dom-if" if="[[sendStatus]]">
+    <template is="dom-if" if="[[sendstatus]]">
       <h1>Graph Card</h1>
-      <h2>[[graphcard]]</h2>
+      <h2>{{graphcard.name}}</h2>
     </template>
-    <template is="dom-if" if="[[!sendStatus]]">
+    <template is="dom-if" if="[[!sendstatus]]">
       <h1>Graph Card</h1>
       <template is="dom-repeat" items="[[listGraphCard]]">
         <p on-click="selectGraphCard">[[item.name]]</p>
@@ -32,13 +32,16 @@
       static get is() { return 'graphcard-element'; }
       static get properties() {
         return {
-          sendStatus: {
+          sendstatus: {
             type: Boolean,
             notify: true
           },
           graphcard: {
-            type: String,
-            value: 'GFT'
+            type: Object,
+            value: {
+              name: 'GFT',
+              notify: true
+            } 
           },
           listGraphCard: {
             type: Array,
@@ -63,7 +66,7 @@
       }
       selectGraphCard(e) {
         console.log(e.model.item.name)
-        this.set("graphcard", e.model.item.name)
+        this.set("graphcard.name", e.model.item.name)
       }
     }
 

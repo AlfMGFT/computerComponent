@@ -7,11 +7,11 @@
         display: block;
       }
     </style>
-    <template is="dom-if" if="[[sendStatus]]">
+    <template is="dom-if" if="[[sendstatus]]">
       <h1>Processor</h1>
-      <h2>[[processor]]</h2>
+      <h2>{{processor.name}}</h2>
     </template>
-    <template is="dom-if" if="[[!sendStatus]]">
+    <template is="dom-if" if="[[!sendstatus]]">
       <h1>Processor</h1>
       <template is="dom-repeat" items="[[listProcessor]]">
         <p on-click="selectProcessor">[[item.name]]</p>
@@ -37,8 +37,11 @@
             notify: true
           },
           processor: {
-            type: String,
-            value: 'Corporation Capsule'
+            type: Object,
+            value: {
+              name: 'Corporation Capsule',
+              notify: true
+            } 
           },
           listProcessor: {
             type: Array,
@@ -63,7 +66,7 @@
       }
       selectProcessor(e) {
         console.log(e.model.item.name)
-        this.set("processor", e.model.item.name)
+        this.set("processor.name", e.model.item.name)
       }
     }
 
