@@ -3,6 +3,8 @@
 <link rel="import" href="./ram-element.html">
 <link rel="import" href="./hdd-element.html">
 <link rel="import" href="./graphcard-element.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-checkbox/paper-checkbox.html">
 
 <dom-module id="computer-component">
   <template>
@@ -26,6 +28,9 @@
         border: solid 1px;
       }
     </style>
+    <paper-button>Hola</paper-button>
+    <paper-checkbox>label</paper-checkbox>
+    <paper-checkbox checked> label</paper-checkbox>
     <h2>Hola Bienvenido a la computadora![[status]]</h2>
     <button on-click="start">Start</button>
     <button on-click="powerOff">Power Off</button>
@@ -35,16 +40,16 @@
     <div class="contenedor-tabla">
       <div class="contenedor-fila">
         <div class="contenedor-columna">
-          <processor-element sendstatus="{{status}}"></processor-element>
+          <processor-element sendstatus="[[status]]"></processor-element>
         </div>
         <div class="contenedor-columna">
-          <ram-element sendstatus="{{status}}"></ram-element>
+          <ram-element sendstatus="[[status]]"></ram-element>
         </div>
         <div class="contenedor-columna">
-          <hdd-element sendstatus="{{status}}"></hdd-element>
+          <hdd-element sendstatus="[[status]]"></hdd-element>
         </div>
         <div class="contenedor-columna">
-          <graphcard-element sendstatus="{{status}}"></graphcard-element>
+          <graphcard-element sendstatus="[[status]]"></graphcard-element>
         </div>
       </div>
     </div>
