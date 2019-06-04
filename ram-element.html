@@ -48,8 +48,8 @@
           }
         };
       }
-      ready() {
-        super.ready()
+      connectedCallback() {
+        super.connectedCallback();
         this.getAPIInformationRamMemory();
       }
       getAPIInformationRamMemory() {
