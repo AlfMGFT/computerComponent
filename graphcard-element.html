@@ -8,7 +8,7 @@
       }
     </style>
     <template is="dom-if" if="[[selectSomeGraphCard]]">
-      <span>Selecciono algo {{graphcard.name}}</span>
+      <span>Selecciono algo {{graphcardT.name}}</span>
     </template>
     <template is="dom-if" if="[[!selectSomeGraphCard]]">
       <span>{{graphcard.name}}</span>
@@ -24,7 +24,7 @@
       </paper-dialog-scrollable>
       <div class="buttons">
         <paper-button dialog-dismiss>Cancel</paper-button>
-        <paper-button dialog-confirm autofocus>Accept</paper-button>
+        <paper-button dialog-confirm autofocus on-click="acceptGraphCard">Accept</paper-button>
       </div>
     </paper-dialog>
   </template>
@@ -46,6 +46,13 @@
             type: Object,
             value: {
               name: 'GFT'
+            },
+            notify: true
+          },
+          graphcardT: {
+            type: Object,
+            value: {
+              name: ''
             },
             notify: true
           },
@@ -78,8 +85,12 @@
       selectGraphCard(e) {
         this.selectSomeGraphCard = true;
         //console.log(e.model.item.name);
-        this.set("graphcard.name", e.model.item.name);
+        this.set("graphcardT.name", e.model.item.name);
       }
+      acceptGraphCard(){
+        this.set("graphcard.name", this.graphcardT.name);
+      }
+
     }
 
     window.customElements.define(GraphCardElement.is, GraphCardElement);

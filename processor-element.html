@@ -8,7 +8,7 @@
       }
     </style>
     <template is="dom-if" if="[[selectSomeProcessor]]">
-      <span>Selecciono algo {{processor.name}}</span>
+      <span>Selecciono algo {{processorT.name}}</span>
     </template>
     <template is="dom-if" if="[[!selectSomeProcessor]]">
       <span>{{processor.name}}</span>
@@ -24,7 +24,7 @@
       </paper-dialog-scrollable>
       <div class="buttons">
         <paper-button dialog-dismiss>Cancel</paper-button>
-        <paper-button dialog-confirm autofocus>Accept</paper-button>
+        <paper-button dialog-confirm autofocus on-click="acceptProcessor">Accept</paper-button>
       </div>
     </paper-dialog>
   </template>
@@ -46,6 +46,13 @@
             type: Object,
             value: {
               name: 'Corporation Capsule',
+            },
+            notify: true
+          },
+          processorT: {
+            type: Object,
+            value: {
+              name: '',
             },
             notify: true
           },
@@ -78,7 +85,10 @@
       selectProcessor(e) {
         this.selectSomeProcessor = true;
         //console.log(e.model.item.name);
-        this.set("processor.name", e.model.item.name);
+        this.set("processorT.name", e.model.item.name);
+      }
+      acceptProcessor(){
+        this.set("processor.name", this.processorT.name);
       }
     }
 

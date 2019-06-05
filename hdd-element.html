@@ -8,7 +8,7 @@
       }
     </style>
     <template is="dom-if" if="[[selectSomeHdd]]">
-      <span>Selecciono algo {{hdd.size}}</span>
+      <span>Selecciono algo {{hddT.size}}</span>
     </template>
     <template is="dom-if" if="[[!selectSomeHdd]]">
       <span>{{hdd.size}}</span>
@@ -25,7 +25,7 @@
       </paper-dialog-scrollable>
       <div class="buttons">
         <paper-button dialog-dismiss>Cancel</paper-button>
-        <paper-button dialog-confirm autofocus>Accept</paper-button>
+        <paper-button dialog-confirm autofocus on-click="acceptHdd">Accept</paper-button>
       </div>
     </paper-dialog>
   </template>
@@ -47,6 +47,13 @@
             type: Object,
             value: {
               size: '2TB - GFT',
+            },
+            notify: true
+          },
+          hddT: {
+            type: Object,
+            value: {
+              size: '',
             },
             notify: true
           },
@@ -79,7 +86,10 @@
       selectHdd(e) {
         this.selectSomeHdd = true;
         //console.log(e.model.item.size);
-        this.set("hdd.size", e.model.item.size);
+        this.set("hddT.size", e.model.item.size);
+      }
+      acceptHdd(){
+        this.set("hdd.size", this.hddT.size);
       }
     }
 

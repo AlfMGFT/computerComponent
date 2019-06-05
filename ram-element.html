@@ -13,7 +13,7 @@
       }*/
     </style>
     <template is="dom-if" if="[[selectSomeRam]]">
-      <span>Selecciono algo {{ram.ramMemory}}</span>
+      <span>Selecciono algo {{ramT.ramMemory}}</span>
     </template>
     <template is="dom-if" if="[[!selectSomeRam]]">
       <span>{{ram.ramMemory}}</span>
@@ -56,6 +56,13 @@
             },
             notify: true
           },
+          ramT: {
+            type: Object,
+            value: {
+              ramMemory: '',
+            },
+            notify: true
+          },
           listRam: {
             type: Array,
           },
@@ -85,7 +92,10 @@
       selectRam(e) {
         this.selectSomeRam = true;
         //console.log(e.model.item.ramMemory);
-        this.set("ram.ramMemory", e.model.item.ramMemory);
+        this.set("ramT.ramMemory", e.model.item.ramMemory);
+      }
+      acceptRam(){
+        this.set("ram.ramMemory", this.ramT.ramMemory);
       }
     }
 
