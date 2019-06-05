@@ -6,6 +6,11 @@
       :host {
         display: block;
       }
+
+      paper-button {
+        background-color: #3F51B5;
+        color: white;
+      }
     </style>
     <template is="dom-if" if="[[selectSomeHdd]]">
       <span>Selecciono algo {{hddT.size}}</span>
@@ -13,7 +18,7 @@
     <template is="dom-if" if="[[!selectSomeHdd]]">
       <span>{{hdd.size}}</span>
     </template>
-
+    <paper-button raised on-click="openModal">HDD</paper-button>
     <paper-dialog id="dialog-hdd">
       <h2>HDD</h2>
       <paper-dialog-scrollable>
@@ -88,8 +93,11 @@
         //console.log(e.model.item.size);
         this.set("hddT.size", e.model.item.size);
       }
-      acceptHdd(){
+      acceptHdd() {
         this.set("hdd.size", this.hddT.size);
+      }
+      openModal() {
+        this.shadowRoot.querySelector('#dialog-hdd').open();
       }
     }
 

@@ -6,6 +6,10 @@
       :host {
         display: block;
       }
+      paper-button {
+        background-color: #3F51B5;
+        color: white;
+      }
     </style>
     <template is="dom-if" if="[[selectSomeGraphCard]]">
       <span>Selecciono algo {{graphcardT.name}}</span>
@@ -13,6 +17,7 @@
     <template is="dom-if" if="[[!selectSomeGraphCard]]">
       <span>{{graphcard.name}}</span>
     </template>
+    <paper-button raised on-click="openModal">Graph Card</paper-button>
     <paper-dialog id="dialog-graphcard">
       <h2>Graph Card</h2>
       <paper-dialog-scrollable>
@@ -87,8 +92,11 @@
         //console.log(e.model.item.name);
         this.set("graphcardT.name", e.model.item.name);
       }
-      acceptGraphCard(){
+      acceptGraphCard() {
         this.set("graphcard.name", this.graphcardT.name);
+      }
+      openModal() {
+        this.shadowRoot.querySelector('#dialog-graphcard').open();
       }
 
     }

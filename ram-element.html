@@ -8,9 +8,10 @@
 
       }
 
-      /*paper-dialog {
-        display: block !important;
-      }*/
+      paper-button {
+        background-color: #3F51B5;
+        color: white;
+      }
     </style>
     <template is="dom-if" if="[[selectSomeRam]]">
       <span>Selecciono algo {{ramT.ramMemory}}</span>
@@ -18,8 +19,7 @@
     <template is="dom-if" if="[[!selectSomeRam]]">
       <span>{{ram.ramMemory}}</span>
     </template>
-
-
+    <paper-button raised on-click="openModal">RAM</paper-button>
     <paper-dialog id="dialog-ram">
       <h2>RAM</h2>
       <paper-dialog-scrollable>
@@ -94,8 +94,11 @@
         //console.log(e.model.item.ramMemory);
         this.set("ramT.ramMemory", e.model.item.ramMemory);
       }
-      acceptRam(){
+      acceptRam() {
         this.set("ram.ramMemory", this.ramT.ramMemory);
+      }
+      openModal() {
+        this.shadowRoot.querySelector('#dialog-ram').open();
       }
     }
 

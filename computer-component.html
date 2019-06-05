@@ -24,6 +24,9 @@
 <link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="../paper-card/paper-card.html">
 <link rel="import" href="../paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../iron-icons/maps-icons.html">
+<link rel="import" href="../iron-icons/device-icons.html">
+<link rel="import" href="../iron-icons/hardware-icons.html">
 
 
 
@@ -65,11 +68,6 @@
         padding: 15px;
         border: 1px solid #dedede;
       }
-
-      paper-button {
-        background-color: #3F51B5;
-        color: white;
-      }
     </style>
 
     <paper-card heading="Bienvenido!, Esta es la computadora de Alfredo">
@@ -101,19 +99,15 @@
 
       <div class="card-actions">
         <ram-element ram="{{ramSelected}}"></ram-element>
-        <paper-button raised class="custom indigo" on-click="openModal">RAM</paper-button>
       </div>
       <div class="card-actions">
         <processor-element processor="{{processorSelected}}"></processor-element>
-        <paper-button on-click="openModal">Processor</paper-button>
       </div>
       <div class="card-actions">
         <graphcard-element graphcard="{{graphSelected}}"></graphcard-element>
-        <paper-button on-click="openModal">Graph Card</paper-button>
       </div>
       <div class="card-actions">
         <hdd-element hdd="{{hddSelected}}"></hdd-element>
-        <paper-button class="green" on-click="openModal">HDD</paper-button>
       </div>
     </paper-card>
   </template>
@@ -144,12 +138,6 @@
       }
       openiron() {
         this.$.idcollapse.toggle();
-      }
-      openModal(e) {
-        //console.log(e.target.previousElementSibling.shadowRoot);
-        //console.log(this.shadowRoot.querySelector('.card-actions'));
-        e.target.previousElementSibling.shadowRoot.querySelector('paper-dialog').open();
-        //this.shadowRoot.querySelector('ram-element').shadowRoot.querySelector('paper-dialog').open();
       }
     }
     window.customElements.define(ComputerComponent.is, ComputerComponent);

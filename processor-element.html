@@ -6,6 +6,11 @@
       :host {
         display: block;
       }
+
+      paper-button {
+        background-color: #3F51B5;
+        color: white;
+      }
     </style>
     <template is="dom-if" if="[[selectSomeProcessor]]">
       <span>Selecciono algo {{processorT.name}}</span>
@@ -13,6 +18,7 @@
     <template is="dom-if" if="[[!selectSomeProcessor]]">
       <span>{{processor.name}}</span>
     </template>
+    <paper-button raised on-click="openModal">Processor</paper-button>
     <paper-dialog id="dialog-processor">
       <h2>Processor</h2>
       <paper-dialog-scrollable>
@@ -87,8 +93,11 @@
         //console.log(e.model.item.name);
         this.set("processorT.name", e.model.item.name);
       }
-      acceptProcessor(){
+      acceptProcessor() {
         this.set("processor.name", this.processorT.name);
+      }
+      openModal() {
+        this.shadowRoot.querySelector('#dialog-processor').open();
       }
     }
 
