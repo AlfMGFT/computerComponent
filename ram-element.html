@@ -5,18 +5,35 @@
     <style>
       :host {
         display: block;
+
       }
+
+      /*paper-dialog {
+        display: block !important;
+      }*/
     </style>
-      <template is="dom-if" if="[[sendstatus]]">
-        <h1>RAM</h1>
-        <h2>{{ram.ramMemory}}</h2>
-      </template>
-      <template is="dom-if" if="[[!sendstatus]]">
-        <h1>RAM</h1>
-        <template is="dom-repeat" items="[[listRam]]">
-          <p on-click="selectRam">[[item.ramMemory]]</p>
-        </template>
-      </template>
+    <template is="dom-if" if="[[selectSomeRam]]">
+      <span>Selecciono algo {{ram.ramMemory}}</span>
+    </template>
+    <template is="dom-if" if="[[!selectSomeRam]]">
+      <span>{{ram.ramMemory}}</span>
+    </template>
+
+
+    <paper-dialog id="dialog-ram">
+      <h2>RAM</h2>
+      <paper-dialog-scrollable>
+        <paper-listbox>
+          <template is="dom-repeat" items="[[listRam]]">
+            <paper-item on-click="selectRam">[[item.ramMemory]]</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm autofocus>Accept</paper-button>
+      </div>
+    </paper-dialog>
   </template>
 
   <script>
@@ -32,19 +49,20 @@
       static get is() { return 'ram-element'; }
       static get properties() {
         return {
-          sendStatus: {
-            type: Boolean,
-            notify: true
-          },
           ram: {
             type: Object,
             value: {
               ramMemory: '4 GB - GFT',
             },
-            notify: true 
+            notify: true
           },
           listRam: {
             type: Array,
+          },
+          selectSomeRam: {
+            type: Boolean,
+            value: false,
+            notify: true
           }
         };
       }
@@ -65,8 +83,9 @@
         }
       }
       selectRam(e) {
-        console.log(e.model.item.ramMemory)
-        this.set("ram.ramMemory", e.model.item.ramMemory)
+        this.selectSomeRam = true;
+        //console.log(e.model.item.ramMemory);
+        this.set("ram.ramMemory", e.model.item.ramMemory);
       }
     }
 

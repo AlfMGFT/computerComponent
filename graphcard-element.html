@@ -7,16 +7,26 @@
         display: block;
       }
     </style>
-    <template is="dom-if" if="[[sendstatus]]">
-      <h1>Graph Card</h1>
-      <h2>{{graphcard.name}}</h2>
+    <template is="dom-if" if="[[selectSomeGraphCard]]">
+      <span>Selecciono algo {{graphcard.name}}</span>
     </template>
-    <template is="dom-if" if="[[!sendstatus]]">
-      <h1>Graph Card</h1>
-      <template is="dom-repeat" items="[[listGraphCard]]">
-        <p on-click="selectGraphCard">[[item.name]]</p>
-      </template>
+    <template is="dom-if" if="[[!selectSomeGraphCard]]">
+      <span>{{graphcard.name}}</span>
     </template>
+    <paper-dialog id="dialog-graphcard">
+      <h2>Graph Card</h2>
+      <paper-dialog-scrollable>
+        <paper-listbox>
+          <template is="dom-repeat" items="[[listGraphCard]]">
+            <paper-item on-click="selectGraphCard">[[item.name]]</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm autofocus>Accept</paper-button>
+      </div>
+    </paper-dialog>
   </template>
 
   <script>
@@ -32,10 +42,6 @@
       static get is() { return 'graphcard-element'; }
       static get properties() {
         return {
-          sendstatus: {
-            type: Boolean,
-            notify: true
-          },
           graphcard: {
             type: Object,
             value: {
@@ -45,6 +51,11 @@
           },
           listGraphCard: {
             type: Array,
+          },
+          selectSomeGraphCard: {
+            type: Boolean,
+            value: false,
+            notify: true
           }
         };
       }
@@ -65,8 +76,9 @@
         }
       }
       selectGraphCard(e) {
-        console.log(e.model.item.name)
-        this.set("graphcard.name", e.model.item.name)
+        this.selectSomeGraphCard = true;
+        //console.log(e.model.item.name);
+        this.set("graphcard.name", e.model.item.name);
       }
     }
 

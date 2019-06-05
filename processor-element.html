@@ -7,16 +7,26 @@
         display: block;
       }
     </style>
-    <template is="dom-if" if="[[sendstatus]]">
-      <h1>Processor</h1>
-      <h2>{{processor.name}}</h2>
+    <template is="dom-if" if="[[selectSomeProcessor]]">
+      <span>Selecciono algo {{processor.name}}</span>
     </template>
-    <template is="dom-if" if="[[!sendstatus]]">
-      <h1>Processor</h1>
-      <template is="dom-repeat" items="[[listProcessor]]">
-        <p on-click="selectProcessor">[[item.name]]</p>
-      </template>
+    <template is="dom-if" if="[[!selectSomeProcessor]]">
+      <span>{{processor.name}}</span>
     </template>
+    <paper-dialog id="dialog-processor">
+      <h2>Processor</h2>
+      <paper-dialog-scrollable>
+        <paper-listbox>
+          <template is="dom-repeat" items="[[listProcessor]]">
+            <paper-item on-click="selectProcessor">[[item.name]]</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm autofocus>Accept</paper-button>
+      </div>
+    </paper-dialog>
   </template>
 
   <script>
@@ -32,19 +42,20 @@
       static get is() { return 'processor-element'; }
       static get properties() {
         return {
-          sendStatus: {
-            type: Boolean,
-            notify: true
-          },
           processor: {
             type: Object,
             value: {
               name: 'Corporation Capsule',
             },
-            notify: true 
+            notify: true
           },
           listProcessor: {
             type: Array,
+          },
+          selectSomeProcessor: {
+            type: Boolean,
+            value: false,
+            notify: true
           }
         };
       }
@@ -65,8 +76,9 @@
         }
       }
       selectProcessor(e) {
-        console.log(e.model.item.name)
-        this.set("processor.name", e.model.item.name)
+        this.selectSomeProcessor = true;
+        //console.log(e.model.item.name);
+        this.set("processor.name", e.model.item.name);
       }
     }
 

@@ -7,16 +7,27 @@
         display: block;
       }
     </style>
-      <template is="dom-if" if="[[sendstatus]]">
-        <h1>HDD</h1>
-        <h2>{{hdd.size}}</h2>
-      </template>
-      <template is="dom-if" if="[[!sendstatus]]">
-        <h1>HDD</h1>
-        <template is="dom-repeat" items="[[listHdd]]">
-          <p on-click="selectHdd">[[item.size]]</p>
-        </template>
-      </template>
+    <template is="dom-if" if="[[selectSomeHdd]]">
+      <span>Selecciono algo {{hdd.size}}</span>
+    </template>
+    <template is="dom-if" if="[[!selectSomeHdd]]">
+      <span>{{hdd.size}}</span>
+    </template>
+
+    <paper-dialog id="dialog-hdd">
+      <h2>HDD</h2>
+      <paper-dialog-scrollable>
+        <paper-listbox>
+          <template is="dom-repeat" items="[[listHdd]]">
+            <paper-item on-click="selectHdd">[[item.size]]</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Cancel</paper-button>
+        <paper-button dialog-confirm autofocus>Accept</paper-button>
+      </div>
+    </paper-dialog>
   </template>
 
   <script>
@@ -32,19 +43,20 @@
       static get is() { return 'hdd-element'; }
       static get properties() {
         return {
-          sendStatus: {
-            type: Boolean,
-            notify: true
-          },
           hdd: {
             type: Object,
             value: {
-              size: '2TB - GFT', 
+              size: '2TB - GFT',
             },
-            notify: true 
+            notify: true
           },
           listHdd: {
             type: Array,
+          },
+          selectSomeHdd: {
+            type: Boolean,
+            value: false,
+            notify: true
           }
         };
       }
@@ -65,8 +77,9 @@
         }
       }
       selectHdd(e) {
-        console.log(e.model.item.size)
-        this.set("hdd.size", e.model.item.size)
+        this.selectSomeHdd = true;
+        //console.log(e.model.item.size);
+        this.set("hdd.size", e.model.item.size);
       }
     }
 
