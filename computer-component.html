@@ -73,17 +73,20 @@
           animation-entry="fade-in-animation" animation-exit="fade-out-animation">
           RAM: [[ramSelected.ramMemory]]
         </paper-tooltip>
+        <br>
         <paper-icon-button icon="hardware:developer-board" id="iconprocessor" on-click="onClick">Processor
         </paper-icon-button>
         <paper-tooltip position="right" id="processor_tooltip" for="iconprocessor" animation-delay="100"
           animation-entry="fade-in-animation" animation-exit="fade-out-animation">
           Processor: [[processorSelected.name]]
         </paper-tooltip>
+        <br>
         <paper-icon-button icon="hardware:sim-card" id="icongraphcard" on-click="onClick">Graph Card</paper-icon-button>
         <paper-tooltip position="right" id="graphcard_tooltip" for="icongraphcard" animation-delay="100"
           animation-entry="fade-in-animation" animation-exit="fade-out-animation">
           Graph Card: [[graphSelected.name]]
         </paper-tooltip>
+        <br>
         <paper-icon-button icon="device:sd-storage" id="iconhdd" on-click="onClick">HDD</paper-icon-button>
         <paper-tooltip position="right" id="hdd_tooltip" for="iconhdd" animation-delay="100"
           animation-entry="fade-in-animation" animation-exit="fade-out-animation">
@@ -105,8 +108,6 @@
           <hdd-element hdd="{{hddSelected}}"></hdd-element>
         </div>
       </template>
-
-
     </paper-card>
   </template>
 
