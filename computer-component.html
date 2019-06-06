@@ -73,7 +73,8 @@
           animation-entry="fade-in-animation" animation-exit="fade-out-animation">
           RAM: [[ramSelected.ramMemory]]
         </paper-tooltip>
-        <paper-icon-button icon="hardware:developer-board" id="iconprocessor" on-click="onClick">Processor</paper-icon-button>
+        <paper-icon-button icon="hardware:developer-board" id="iconprocessor" on-click="onClick">Processor
+        </paper-icon-button>
         <paper-tooltip position="right" id="processor_tooltip" for="iconprocessor" animation-delay="100"
           animation-entry="fade-in-animation" animation-exit="fade-out-animation">
           Processor: [[processorSelected.name]]
@@ -90,18 +91,22 @@
         </paper-tooltip>
       </iron-collapse>
 
-      <div class="card-actions">
-        <ram-element ram="{{ramSelected}}"></ram-element>
-      </div>
-      <div class="card-actions">
-        <processor-element processor="{{processorSelected}}"></processor-element>
-      </div>
-      <div class="card-actions">
-        <graphcard-element graphcard="{{graphSelected}}"></graphcard-element>
-      </div>
-      <div class="card-actions">
-        <hdd-element hdd="{{hddSelected}}"></hdd-element>
-      </div>
+      <template is="dom-if" if="[[!status]]">
+        <div class="card-actions">
+          <ram-element ram="{{ramSelected}}"></ram-element>
+        </div>
+        <div class="card-actions">
+          <processor-element processor="{{processorSelected}}"></processor-element>
+        </div>
+        <div class="card-actions">
+          <graphcard-element graphcard="{{graphSelected}}"></graphcard-element>
+        </div>
+        <div class="card-actions">
+          <hdd-element hdd="{{hddSelected}}"></hdd-element>
+        </div>
+      </template>
+
+
     </paper-card>
   </template>
 
@@ -131,6 +136,11 @@
       }
       openiron() {
         this.$.idcollapse.toggle();
+        if (this.status === false) {
+          this.status = true;
+        } else {
+          this.status = false;
+        }
       }
     }
     window.customElements.define(ComputerComponent.is, ComputerComponent);
