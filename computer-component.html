@@ -5,21 +5,14 @@
 <link rel="import" href="./graphcard-element.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-listbox/paper-listbox.html">
 <link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="../paper-radio-button/paper-radio-button.html">
-<link rel="import" href="../paper-radio-group/paper-radio-group.html">
-<link rel="import" href="../paper-slider/paper-slider.html">
 <link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
-<link rel="import" href="../paper-badge/paper-badge.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../paper-dialog/paper-dialog.html">
 <link rel="import" href="../paper-dialog-scrollable/paper-dialog-scrollable.html">
-<link rel="import" href="../paper-spinner/paper-spinner.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="import" href="../paper-collapse-item/paper-collapse-item.html">
 <link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="../paper-card/paper-card.html">
@@ -75,25 +68,25 @@
         <paper-toggle-button on-click="openiron"></paper-toggle-button>
       </div>
       <iron-collapse id="idcollapse">
-        <paper-icon-button icon="face" id="iconram" on-click="onClick">RAM</paper-icon-button>
+        <paper-icon-button icon="hardware:memory" id="iconram" on-click="onClick">RAM</paper-icon-button>
         <paper-tooltip position="right" id="ram_tooltip" for="iconram" animation-delay="100"
           animation-entry="fade-in-animation" animation-exit="fade-out-animation">
-          RAM: {{ramSelected.ramMemory}}
+          RAM: [[ramSelected.ramMemory]]
         </paper-tooltip>
-        <paper-icon-button icon="refresh" id="iconprocessor" on-click="onClick">Processor</paper-icon-button>
+        <paper-icon-button icon="hardware:developer-board" id="iconprocessor" on-click="onClick">Processor</paper-icon-button>
         <paper-tooltip position="right" id="processor_tooltip" for="iconprocessor" animation-delay="100"
           animation-entry="fade-in-animation" animation-exit="fade-out-animation">
-          Processor: {{processorSelected.name}}
+          Processor: [[processorSelected.name]]
         </paper-tooltip>
-        <paper-icon-button icon="search" id="icongraphcard" on-click="onClick">Graph Card</paper-icon-button>
+        <paper-icon-button icon="hardware:sim-card" id="icongraphcard" on-click="onClick">Graph Card</paper-icon-button>
         <paper-tooltip position="right" id="graphcard_tooltip" for="icongraphcard" animation-delay="100"
           animation-entry="fade-in-animation" animation-exit="fade-out-animation">
-          Graph Card: {{graphSelected.name}}
+          Graph Card: [[graphSelected.name]]
         </paper-tooltip>
-        <paper-icon-button icon="favorite" id="iconhdd" on-click="onClick">HDD</paper-icon-button>
+        <paper-icon-button icon="device:sd-storage" id="iconhdd" on-click="onClick">HDD</paper-icon-button>
         <paper-tooltip position="right" id="hdd_tooltip" for="iconhdd" animation-delay="100"
           animation-entry="fade-in-animation" animation-exit="fade-out-animation">
-          HDD: {{hddSelected.size}}
+          HDD: [[hddSelected.size]]
         </paper-tooltip>
       </iron-collapse>
 
