@@ -2,23 +2,41 @@
 
 <dom-module id="processor-element">
   <template>
-    <style>
+    <style include="app-grid-style">
       :host {
         display: block;
+        --app-grid-columns: 2;
+        --app-grid-item-height: 100px;
       }
 
-      paper-button {
+      .id-b {
         background-color: #3F51B5;
         color: white;
       }
+
+      ul {
+        padding: 0;
+        list-style: none;
+      }
+
+      .item {
+        background-color: white;
+      }
     </style>
-    <template is="dom-if" if="[[selectSomeProcessor]]">
-      <span>Selecciono algo {{processorT.name}}</span>
-    </template>
-    <template is="dom-if" if="[[!selectSomeProcessor]]">
-      <span>{{processor.name}}</span>
-    </template>
-    <paper-button raised on-click="openModal">Processor</paper-button>
+
+    <ul class="app-grid">
+      <li class="item">
+        <template is="dom-if" if="[[selectSomeProcessor]]">
+          <span>Selecciono algo {{processorT.name}}</span>
+        </template>
+        <template is="dom-if" if="[[!selectSomeProcessor]]">
+          <span>{{processor.name}}</span>
+        </template>
+      </li>
+      <li class="item">
+        <paper-button class="id-b" raised on-click="openModal">Processor</paper-button>
+      </li>
+    </ul>
     <paper-dialog id="dialog-processor">
       <h2>Processor</h2>
       <paper-dialog-scrollable>

@@ -2,24 +2,42 @@
 
 <dom-module id="hdd-element">
   <template>
-    <style>
+    <style include="app-grid-style">
       :host {
         display: block;
+        --app-grid-columns: 2;
+        --app-grid-item-height: 100px;
       }
 
-      paper-button {
+      .id-b {
         background-color: #3F51B5;
         color: white;
-        left: 0px;
       }
+
+      ul {
+        padding: 0;
+        list-style: none;
+      }
+
+      .item {
+        background-color: white;
+      }
+      
     </style>
-    <template is="dom-if" if="[[selectSomeHdd]]">
-      <span>Selecciono algo {{hddT.size}}</span>
-    </template>
-    <template is="dom-if" if="[[!selectSomeHdd]]">
-      <span>{{hdd.size}}</span>
-    </template>
-    <paper-button raised on-click="openModal">HDD</paper-button>
+
+    <ul class="app-grid">
+      <li class="item">
+        <template is="dom-if" if="[[selectSomeHdd]]">
+          <span>Selecciono algo {{hddT.size}}</span>
+        </template>
+        <template is="dom-if" if="[[!selectSomeHdd]]">
+          <span>{{hdd.size}}</span>
+        </template>
+      </li>
+      <li class="item">
+        <paper-button class="id-b" raised on-click="openModal">HDD</paper-button>
+      </li>
+    </ul>
     <paper-dialog id="dialog-hdd">
       <h2>HDD</h2>
       <paper-dialog-scrollable>
